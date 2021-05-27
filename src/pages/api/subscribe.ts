@@ -28,7 +28,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         let customerId = user.data.stripe_customer_id
 
         if (!customerId) {
-            console.log('customerId', customerId)
         const stripeCustomer = await stripe.customers.create({
             email: session.user.email,
             //metadata
