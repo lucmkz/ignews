@@ -13,28 +13,27 @@ export function SubscribeButton ({ priceId } : SubscribeButtonProps) {
    const router = useRouter();
 
     async function handleSubscrible() {
-        if (!session) {
-            signIn('github')
-            return
-        }
+      if (!session) {
+        signIn("github");
+        return;
+      }
 
-        if (session.activeSubscription) {
-            router.push('/posts')
-            return;
-        }
+      if (session.activeSubscription) {
+        router.push("/posts");
+        return;
+      }
 
-        try {
-            const response = await api.post('/subscribe')
+      try {
+        const response = await api.post("/subscribe");
 
-            const { sessionId } = response.data
+        const { sessionId } = response.data;
 
-            const stripe = await getStripeJs()
+        const stripe = await getStripeJs();
 
-            await stripe.redirectToCheckout({ sessionId })
-
-        } catch (err) {
-            alert(err.message)
-        }
+        await stripe.redirectToCheckout({ sessionId });
+      } catch (err) {
+        alert(err.message);
+      }
     }
 
     return (
